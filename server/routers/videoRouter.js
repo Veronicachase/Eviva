@@ -3,7 +3,7 @@ const { addVideo, getVideoById, getAllVideos,updateVideo, deleteVideo } = requir
 const videoRouter =express.Router();
 const authenticateToken = require("../middleWares/authenticateToken");
 const requireAdmin = require ("../middleWares/requireAdmin")
-const requireSubscription =require("../middleWares/requireSubcription")
+const requireSubscription =require("../middleWares/requireSubscription")
 
 videoRouter.use(authenticateToken);
 

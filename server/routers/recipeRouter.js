@@ -3,7 +3,7 @@ const { addRecipe, getRecipeById, getAllRecipes,updateRecipe, deleteRecipe } = r
 const recipeRouter =express.Router();
 const authenticateToken = require("../middleWares/authenticateToken");
 const requireAdmin = require("../middleWares/requireAdmin");
-const requireSubscription =require("../middleWares/requireSubcription");
+const requireSubscription =require("../middleWares/requireSubscription");
 
 recipeRouter.use(authenticateToken);
 

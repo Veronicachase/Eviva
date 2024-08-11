@@ -4,14 +4,16 @@ const { jwtVerify } = require("jose")
 const express = require("express")
 const dotenv = require('dotenv');
 const logger = require("morgan");
+const Stripe = require("stripe")
 const userRourter = require("./routers/userRouter");
 const blogRouter = require("./routers/blogRouter");
 const videoRouter = require ("./routers/videoRouter");
 const recipeRouter = require ("./routers/recipeRouter");
 const calendarRouter = require ("./routers/calendarRouter");
-const settingsRouter = require("./routers/settingsRouter")
-const cors =require("cors")
+const settingsRouter = require("./routers/settingsRouter");
 
+const cors =require("cors")
+const stripe= new Stripe(process.env.STRIPE_SK_PRIVATE_kEY)
 
 dotenv.config();
 const app = express();
@@ -30,7 +32,7 @@ app.use(express.json({limit:"50mb"}));
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware para verificar el token JWT
+// Middleware para verificar el token JWT, colocar esto en la sección de middleware
 const authenticateToken = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -60,6 +62,8 @@ app.use ("/recipes", authenticateToken, recipeRouter);
 app.use ("/blogs", authenticateToken, blogRouter);
 app.use ("/setting",authenticateToken, settingsRouter )
 app.use ("/users", userRourter)
+app.use ("/payment",)// hacer ek router de payment y checkout
+
 // falta ingresar rutas para payments, user account, 
 
 

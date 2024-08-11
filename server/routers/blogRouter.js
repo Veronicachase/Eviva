@@ -3,7 +3,7 @@ const {addBlog, getBlogById, getAllBlogs, updateBlog, deleteBlog } = require (".
 const blogRouter = express.Router();
 const authenticateToken = require ("../middleWares/authenticateToken")
 const requireAdmin = require("../middleWares/requireAdmin");
-const requireSubscription =require("../middleWares/requireSubcription");
+const requireSubscription =require("../middleWares/requireSubscription");
 
 blogRouter.use(authenticateToken);
 

@@ -2,7 +2,7 @@ const express = require("express");
 const {addCompleteEntry, getAllCalendarEntries, updateCompleteEntries, deleteAllCalendarEntriesOneDay, deleteSymptom, deleteMood, deleteSex, deletePhase, deletePeriod } = require("../controllers/calendarController")
 const calendarRouter =express.Router();
 const authenticateToken = require("../middleWares/authenticateToken");
-const requireSubscription =require("../middleWares/requireSubcription");
+const requireSubscription =require("../middleWares/requireSubscription");
 
 calendarRouter.use(authenticateToken);
 
