@@ -22,16 +22,21 @@ const CheckoutForm = () => {
       type: "card",
       card: elements.getElement(CardElement),
     });
+
     if(!error){
         const { id }=paymentMethod;
-        await= (la api de makePayment.js)
+        
     }
   };
   return (
     <form onSubmit={handleSubmit} className="card card-body">
+    {/* Aquí colocaremos la imagen de lo que se va a vender o el paquete. y otros detalles */}
       <PaymentElement />
-      <CardElement />
-      <button>Payment</button>
+      <div className="form-group">  
+       <CardElement  className="form-control"/>
+      </div>
+    
+      <button className="btn btn-success">Payment</button>
     </form>
   );
 };

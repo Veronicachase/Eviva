@@ -5,7 +5,7 @@ import { login, addUser, getUser as apiGetUser, deleteUser  } from '../../apis/i
 const apiUrl = import.meta.env.VITE_API_URL; 
 
 // Thunks
-export const fetchUser = createAsyncThunk('user/getUser', async (userId, thunkAPI) => {
+ {/*  export const fetchUser = createAsyncThunk('user/getUser', async (userId, thunkAPI) => {
     try {
         const response = await apiGetUser(userId);
         return response.data;
@@ -65,4 +65,4 @@ const userSlice = createSlice({
 });
 
 export const { logout } = userSlice.actions;
-export default userSlice.reducer;
+export default userSlice.reducer;*/}

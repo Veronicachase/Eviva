@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-//import AuthContextProvider from ""; //  crear e importar el auth en context
+import AuthContextProvider from "./context/AuthContextProvider"; 
 import {
   AllBlogs,BlogAdminPanel,SelectedBlog,MainCalendar,Reports,Home,
   InfoAccordingToObjective,Objective,SuscriptionAndPlansInfo,Test,TestResults,Login,Register,ForgotPassword,
   ResetPassword,UserProfile,UserDetails,Settings,PaymentDetails,AllRecipes,RecipeAdminPanel,SelectedRecipe,
-  AllVideos,VideoAdminPanel,SelectedVideo,ContactUs,LoggedUserOptionsPage,TermsAndCoditions, PaymentPage
+  AllVideos,VideoAdminPanel,SelectedVideo,ContactUs,LoggedUserOptionsPage,TermsAndConditions, PaymentPage
 } from "./views/Index";
 import { Provider } from "react-redux";
 //import { store } from "./store/store";
@@ -31,7 +31,7 @@ function App() {
         <Route path="/test-results" element={<TestResults />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/plans-info" element={<SuscriptionAndPlansInfo />} />
-        <Route path="/terms-and-conditions" element={<TermsAndCoditions />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/payment" element={<PaymentPage />} />
 
 
