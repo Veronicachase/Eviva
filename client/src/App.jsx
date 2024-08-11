@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthContextProvider from ""; //  crear e importar el auth en context
+//import AuthContextProvider from ""; //  crear e importar el auth en context
 import {
   AllBlogs,BlogAdminPanel,SelectedBlog,MainCalendar,Reports,Home,
   InfoAccordingToObjective,Objective,SuscriptionAndPlansInfo,Test,TestResults,Login,Register,ForgotPassword,
   ResetPassword,UserProfile,UserDetails,Settings,PaymentDetails,AllRecipes,RecipeAdminPanel,SelectedRecipe,
-  AllVideos,VideoAdminPanel,SelectedVideo,ContactUs,LoggedUserOptionsPage,TermsAndCoditions
-} from "./views";
+  AllVideos,VideoAdminPanel,SelectedVideo,ContactUs,LoggedUserOptionsPage,TermsAndCoditions, PaymentPage
+} from "./views/Index";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+//import { store } from "./store/store";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
@@ -32,6 +32,7 @@ function App() {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/plans-info" element={<SuscriptionAndPlansInfo />} />
         <Route path="/terms-and-conditions" element={<TermsAndCoditions />} />
+        <Route path="/payment" element={<PaymentPage />} />
 
 
         <Route element={<RequireAuth />}>

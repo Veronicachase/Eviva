@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserData, logout } from '../../slices/userSlice';
+import { fetchUserData, logout } from '../../Redux/slices/userSlice';
 import { Box, Button } from '@mui/material'
 
 

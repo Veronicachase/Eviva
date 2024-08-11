@@ -8,7 +8,8 @@ const userRourter = require("./routers/userRouter");
 const blogRouter = require("./routers/blogRouter");
 const videoRouter = require ("./routers/videoRouter");
 const recipeRouter = require ("./routers/recipeRouter");
-const calendarRouter = require ("./routers/calendarRouter")
+const calendarRouter = require ("./routers/calendarRouter");
+const settingsRouter = require("./routers/settingsRouter")
 const cors =require("cors")
 
 
@@ -57,6 +58,7 @@ app.use ("/calendar",authenticateToken, calendarRouter);
 app.use ("/videos", authenticateToken, videoRouter);
 app.use ("/recipes", authenticateToken, recipeRouter);
 app.use ("/blogs", authenticateToken, blogRouter);
+app.use ("/setting",authenticateToken, settingsRouter )
 app.use ("/users", userRourter)
 // falta ingresar rutas para payments, user account, 
 

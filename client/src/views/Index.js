@@ -1,5 +1,5 @@
 import AllBlogs from "./blogs/AllBlogs";
-import BlogAdminPanel from "./blogs/BlogAdminPanel";
+import BlogAdminPanel from "./panelAdmin/BlogAdminPanel";
 import SelectedBlog from "./blogs/SelectedBlog";
 import MainCalendar from "./calendar/MainCalendar";
 import Reports from "./calendar/Reports";
@@ -10,22 +10,23 @@ import SuscriptionAndPlansInfo from "./SuscriptionAndPlansInfo";
 import Test from "./homeAndDiagnosis/Test";
 import TestResults from "./homeAndDiagnosis/TestResults";
 import Login from "./login/Login";
-import Register  from "./login/Register";
-import ForgotPassword  from "./login/ForgotPassword";
+import Register from "./login/Register";
+import ForgotPassword from "./login/ForgotPassword";
 import ResetPassword from "./login/ResetPassword";
 import UserProfile from "./profile/Profile";
 import UserDetails from "./profile/UserDetails";
 import Settings from "./profile/Settings";
 import PaymentDetails from "./profile/PaymentDetails";
 import AllRecipes from "./recipe/AllRecipes";
-import RecipeAdminPanel from "./recipe/RecipeAdminPanel";
+import RecipeAdminPanel from "./panelAdmin/RecipeAdminPanel";
 import SelectedRecipe from "./recipe/SelectecRecipe";
 import AllVideos from "./videos/AllVideos";
-import VideoAdminPanel from "./videos/VideoAdminPanel";
+import VideoAdminPanel from "./panelAdmin/VideoAdminPanel";
 import SelectedVideo from "./videos/SelectedVideo";
 import ContactUs from "./ContactUs";
 import LoggedUserOptionsPage from "./LoggedUserOptionsPage";
-import TermsAndConditions from "./TermsAndConditions"
+import TermsAndConditions from "./TermsAndConditions";
+import PaymentPage from "./PaymentPage"
 
 export {
   AllBlogs,
@@ -55,5 +56,6 @@ export {
   SelectedVideo,
   ContactUs,
   LoggedUserOptionsPage,
-  TermsAndConditions
+  TermsAndConditions,
+  PaymentPage
 };
