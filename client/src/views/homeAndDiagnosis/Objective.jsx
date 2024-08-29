@@ -1,1 +1,4 @@
-export default function Objective(){}
+export default function Objective(){
+
+    return <h> Here a  list of options for the users objective</h>
+}

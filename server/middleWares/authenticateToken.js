@@ -7,7 +7,7 @@ const authenticateToken = async (req, res, next) => {
 
   if (!token) {
     console.log("No hay token, no ha llegado el token hasta el authenticateToken");
-    return res.sendStatus(401); // No autorizado
+    return res.sendStatus(401); 
   }
 
   try {
@@ -18,7 +18,7 @@ const authenticateToken = async (req, res, next) => {
     next();
   } catch (err) {
     console.log("JWT verification error:", err);
-    return res.sendStatus(403); // Prohibido
+    return res.sendStatus(403); 
   }
 };
 

@@ -1,21 +1,52 @@
-const { default: Stripe } = require("stripe");
-const payment = require("../DatabaseAndDao/paymentDao");
+// Antes de enviar a producción debo robustecer mis filtros y captura de errores.
+
+const Stripe = require("stripe")(process.env.STRIPE_SK_PRIVATE_kEY_Test);
+//const paymentDao = require("../DatabaseAndDao/paymentDao");
 
 // falta revisión
-const postPayment = async (req, res) => {
+const createPaymentIntent = async (req, res) => {
+  const { id, amount } = req.body;
+
   try {
-    const userId = req.user.userId;
-    const { id, amount } = req.body;
-    const paymentData = await Stripe.PaymentIntentsResource.create({
+    const paymentIntent = await Stripe.paymentIntents.create({
       amount,
       currency: "EUR",
-      Description: "To confirm what to write here / product description",
+      description: "Subscription to Oviva Care",
       payment_method: id,
       confirm: true,
     });
-    res.send("Payment received");
+    console.log("PaymentIntent", paymentIntent);
+
+    res.status(200).send({
+      success: true,
+      clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id,
+      status: paymentIntent.status,
+  });
+    console.log(clientSecret);
   } catch (error) {
     console.error("Error processing payment:", error.message);
-    res.status(500).json({ error: error.raw.message });
+    res.status(500).json({ error: error.message, success: false });
   }
 };
+
+/*const paymentRecord = async(req, res) =>{
+  const { userId, paymentIntentId, status, paymentMethodId, amount, currency }= req.body;
+try{
+  await paymentDao.savePaymentDetails({
+    userId,
+    paymentIntentId,
+    amount,
+    status,
+    paymentMethodId,
+    currency,
+  });
+  res.status(201).json({ success: true, mesage:"Payment details saved successfully"});
+}catch (error){
+  console.error("Error saving the paymento on database (controller)", error.message);
+  res.status(500).json({error:error.message})
+
+}
+}*/
+
+module.exports = { createPaymentIntent };

@@ -1,27 +1,16 @@
+
+
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-//import { fetchUser, logout } from "../../Redux/slices";
-import { Box, Button } from "@mui/material";
+import { checkAuthToken } from "../../utils/tokenVerifier";
 
 export default function UserProfile() {
- {/* const dispatch = useDispatch();
-  const { data, status, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser("aqui va el userId"));
+    checkAuthToken(dispatch);
   }, [dispatch]);
-
-  if (status === "loading") return <div>Cargando...</div>;
-  if (error) return <div>Error:{error}</div>;
-
-  return (
-    <Box className="boxes">
-      <h1>
-        {data.name} {data.surName}
-      </h1>
-      <p>Age: {data.age}</p>
-      <p>Email: {data.email}</p>
-      <Button onClick={() => dispatch(logout())}>Logout</Button>
-    </Box>
-  );*/}
+  <h1>Here goes the user s profile </h1>
 }
+
+

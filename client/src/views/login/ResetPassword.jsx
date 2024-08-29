@@ -1,1 +1,3 @@
-export default function ResetPassword(){}
+export default function ResetPassword(){
+    return <h1>Reset password</h1>
+}

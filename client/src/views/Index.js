@@ -11,7 +11,7 @@ import Login from "./login/Login";
 import MainCalendar from "./calendar/MainCalendar";
 import Objective from "./homeAndDiagnosis/Objective";
 import PaymentDetails from "./profile/PaymentDetails";
-import PaymentPage from "./PaymentPage";
+import PaymentPage from "./payment/PaymentPage";
 import RecipeAdminPanel from "./panelAdmin/RecipeAdminPanel";
 import Register from "./login/Register";
 import Reports from "./calendar/Reports";
