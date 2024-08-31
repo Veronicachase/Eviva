@@ -1,21 +1,26 @@
 
 const CARD_OPTIONS ={
-iconStyle:"solid",
+
 style:{
+    
 base:{
-iconColor:"#c4f0ff",
-color:"#fff",
-fontWeight:500,
+
+iconColor:"#ccc",
+color:"#000",
+fontWeight:400,
 fontFamily:"Roboto, Open Sans, Segoe UI, sans-serif",
-fontSize:"16px",
+fontSize:"14px",
 fontSmoothing:"antialiased",
-":-webkit-autofill":{color:"#fce883"},
-"::placeholder":{color:"#87bbfd"}
+":-webkit-autofill":{color:"#ccc"},
+"::placeholder":{color:"#3b83bd"},
+backgroundColor:"#fff",
+
+
 
 }, 
 invalid: {
-iconColor:"#ffc7ee",
-color:"#ffc7ee"
+iconColor:"#e5424d",
+color:"#e5424d"
 
 }
 

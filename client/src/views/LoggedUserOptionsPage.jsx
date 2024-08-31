@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { checkAuthToken } from "../../utils/tokenVerifier";
+import { checkAuthToken } from "../utils/tokenVerifier";
 
 
 

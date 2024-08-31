@@ -3,11 +3,12 @@ import {
   createAsyncThunk,
   
 } from "@reduxjs/toolkit";
-import {
-  login as apiUserLogin,
-  getUser as apiGetUser,
-  deleteUser as apiDeleteUser,
-} from "../../apis/index";
+
+import apiUserLogin from '../../apis/user/loginUser';
+import apiGetUser from '../../apis/user/getUser';
+import apiDeleteUser from '../../apis/user/deleteUser';
+
+
 
 // Mis llamadas al backend importando las apis para usarlas con createAsyncThunk
 export const loginUser = createAsyncThunk(
@@ -82,11 +83,7 @@ const userSlice = createSlice({
         localStorage.setItem('token', action.payload.token)
         state.status = "Succeeded";
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
-        state.user = action.payload.user;
-        state.status = "succeded";
-      })
+      
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
@@ -102,10 +99,7 @@ const userSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(deleteUser.pending, (state) => {
-        state.status = "loading";
-      })
-
+    
       .addCase(deleteUser.pending, (state) => {
         state.status = "loading";
       })
@@ -124,65 +118,3 @@ const userSlice = createSlice({
 
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;
-
-//   export const fetchUser = createAsyncThunk('user/getUser', async (userId, thunkAPI) => {
-//     try {
-//         const response = await apiGetUser(userId);
-//         return response.data;
-//     } catch (error) {
-//         return thunkAPI.rejectWithValue(error.response.data);
-//     }
-// });
-
-// export const loginUser = createAsyncThunk('user/login', async (credentials, thunkAPI) => {
-//     try {
-//         const response = await axios.post(`${apiUrl}/users/login`, credentials);
-//         return response.data;
-//     } catch (error) {
-//         return thunkAPI.rejectWithValue(error.response.data);
-//     }
-// });
-
-// // User slice
-// const userSlice = createSlice({
-//     name: 'user',
-//     initialState: {
-//         data: null,
-//         status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
-//         error: null
-//     },
-//     reducers: {
-//         logout: (state) => {
-//             state.data = null;
-//             state.status = 'idle';
-//         }
-//     },
-//     extraReducers: (builder) => {
-//         builder
-//             .addCase(fetchUser.pending, (state) => {
-//                 state.status = 'loading';
-//             })
-//             .addCase(fetchUser.fulfilled, (state, action) => {
-//                 state.status = 'succeeded';
-//                 state.data = action.payload;
-//             })
-//             .addCase(fetchUser.rejected, (state, action) => {
-//                 state.status = 'failed';
-//                 state.error = action.error.message;
-//             })
-//             .addCase(loginUser.pending, (state) => {
-//                 state.status = 'loading';
-//             })
-//             .addCase(loginUser.fulfilled, (state, action) => {
-//                 state.status = 'succeeded';
-//                 state.data = action.payload;
-//             })
-//             .addCase(loginUser.rejected, (state, action) => {
-//                 state.status = 'failed';
-//                 state.error = action.error.message;
-//             });
-//     }
-// });
-
-// export const { logout } = userSlice.actions;
-// export default userSlice.reducer;

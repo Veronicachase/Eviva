@@ -1,6 +1,5 @@
-import { Routes, Route, Navigate  } from "react-router-dom";
-import { isLoggedIn, isSubscribe }  from './Redux/slices/userSlice'
-
+import { Routes, Route } from "react-router-dom";
+import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
 import {
   AllBlogs,
   BlogAdminPanel,
@@ -33,58 +32,73 @@ import {
   PaymentPage,
 } from "./views/Index";
 import { Provider } from "react-redux";
-import { store } from "./Redux/store/store"
+import { store } from "./Redux/store/store";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
-//import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
+
 // confirmar si resetPassword va dentro o fuera de auth
 //crear Require auth
 // paginas para pago y carrito
 function App() {
   return (
     <Provider store={store}>
-    <>
-      <Toaster />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/objectives-info" element={<InfoAccordingToObjective />} />
-        <Route path="/objective" element={<Objective />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/test-results" element={<TestResults />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/plans-info" element={<SuscriptionAndPlansInfo />} />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/payment" element={isLoggedIn ? <PaymentPage />:<Navigate to="/login" /> } />
+      <>
+        <Toaster />
+        <Routes>
+          {/*Public routes*/}
 
-          {/*<Route element={<RequireAuth />}>*/}
-          <Route path="/userOptions" element={isLoggedIn  ? <LoggedUserOptionsPage /> :<Navigate to="/login" /> } />
-          <Route path="/blog-admin-panel" element={isLoggedIn  ? <BlogAdminPanel /> :<Navigate to="/login" /> } />
-          <Route path="/video-admin-panel" element={isLoggedIn  ? <VideoAdminPanel /> :<Navigate to="/login" />} />
-          <Route path="/recipe-admin-panel" element={ isLoggedIn ? <RecipeAdminPanel />:<Navigate to="/login" />} />
-
-          <Route path="/all-Blogs" element={ isLoggedIn && isSubscribe ? <AllBlogs />:<Navigate to="/login" />} />
-          <Route path="/selected-blog/blogId" element={isLoggedIn && isSubscribe? <SelectedBlog /> :<Navigate to="/login" />} />
-          <Route path="/main-calendar" element={isLoggedIn && isSubscribe ? <MainCalendar /> :<Navigate to="/login" />} />
-          <Route path="/reports" element={isLoggedIn && isSubscribe ?<Reports />:<Navigate to="/login" />} />
-          <Route path="/user-profile/userId" element={isLoggedIn ? <UserProfile /> :<Navigate to="/login" />} />
-          <Route path="/payment-details" element={isLoggedIn && isSubscribe?<PaymentDetails /> :<Navigate to="/login" />} />
-          <Route path="/settings" element={isLoggedIn ?<Settings />:<Navigate to="/login" />} />
-          <Route path="/user-details" element={isLoggedIn ?<UserDetails /> :<Navigate to="/login" />} />
-          <Route path="/all-recipes" element={isLoggedIn && isSubscribe?<AllRecipes /> :<Navigate to="/login" />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
-            path="/selected-recipe/:recipeId"
-            element={isLoggedIn && isSubscribe ?<SelectedRecipe /> :<Navigate to="/login" />}
+            path="/objectives-info"
+            element={<InfoAccordingToObjective />}
           />
-          <Route path="/all-videos" element={isLoggedIn  && isSubscribe?<AllVideos />:<Navigate to="/login" />} />
-          <Route path="/selected-video/:videoId" element={isLoggedIn && isSubscribe ?<SelectedVideo /> :<Navigate to="/login" />} />
-        {/*</Route> */}
-        
-      </Routes>
+          <Route path="/objective" element={<Objective />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/test-results" element={<TestResults />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/plans-info" element={<SuscriptionAndPlansInfo />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+          {/* require being logged 
+          <Route element={<RequireAuth />}>  </Route>*/}
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/userOptions" element={<LoggedUserOptionsPage />} />
+            <Route path="/user-profile/userId" element={<UserProfile />} />
+            <Route path="/user-details" element={<UserDetails />} />
+            <Route path="/settings" element={<Settings />} />
+         
+
+          {/* Admin section / requiere admin cred */}
+          <Route path="/blog-admin-panel" element={<BlogAdminPanel />} />
+          <Route path="/video-admin-panel" element={<VideoAdminPanel />} />
+          <Route path="/recipe-admin-panel" element={<RecipeAdminPanel />} />
+
+          {/* Require  being logged  and susbcription */}
+          <Route element={<RequireAuth requiredSubscription={true} />}>
+            <Route path="/all-Blogs" element={<AllBlogs />} />
+            <Route path="/selected-blog/blogId" element={<SelectedBlog />} />
+            <Route path="/main-calendar" element={<MainCalendar />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/payment-details" element={<PaymentDetails />} />
+            <Route path="/all-recipes" element={<AllRecipes />} />
+            <Route
+              path="/selected-recipe/:recipeId"
+              element={<SelectedRecipe />}
+            />
+            <Route path="/all-videos" element={<AllVideos />} />
+            <Route
+              path="/selected-video/:videoId"
+              element={<SelectedVideo />}
+            />
+          </Route>
+        </Routes>
       </>
     </Provider>
   );

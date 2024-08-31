@@ -6,8 +6,9 @@ import {
   useStripe
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { useState } from "react";
-import { CARD_OPTIONS } from "../../utils/variables";
+import { useState } from "react"
+import { CARD_OPTIONS }  from "../../utils/variables"
+import "../../views/payment/payment.css"
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -19,15 +20,10 @@ const PaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const cardNumber = elements.getElement(CardNumberElement);
-    const cardExpiry = elements.getElement(CardExpiryElement);
-    const cardCvc = elements.getElement(CardCvcElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: cardNumber,
-      additionalCardholderInformation: {
-        cardExpiry,
-        cardCvc
-      }
+      
     });
 
     if (!error) {
@@ -57,19 +53,24 @@ const PaymentForm = () => {
   return (
     <>
       {!success ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="container">
           <fieldset className="FormGroup">
             <div className="FormRow">
-              <CardNumberElement options={CARD_OPTIONS} />
+              <label>Card Number </label>
+              <CardNumberElement  className="cvcInput" options={CARD_OPTIONS} />
             </div>
-            <div className="FormRow">
-              <CardExpiryElement options={CARD_OPTIONS} />
-            </div>
-            <div className="FormRow">
-              <CardCvcElement options={CARD_OPTIONS} />
-            </div>
+            <div className="cvcEDContainer"> 
+              <div className="FormRow  expDate">
+                <label>Expiry Date </label>
+                <CardExpiryElement className="cvcInput" options={CARD_OPTIONS} />
+              </div>
+              <div className="FormRow cvc">
+                <label>Security Code </label>
+                <CardCvcElement  className="cvcInput" options={CARD_OPTIONS} />
+              </div>
+            </div> 
           </fieldset>
-          <button>Pay</button>
+          <button className ="btn">Pay</button>
         </form>
       ) : (
         <div>

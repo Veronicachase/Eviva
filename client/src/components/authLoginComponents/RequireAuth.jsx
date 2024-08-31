@@ -1,23 +1,26 @@
 
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export const RequireAuth =()=>{
+export const RequireAuth = ({ requiredSubscription = false }) => {
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isSubscribed = useSelector((state) => state.user.isSubscribed);
 
-<p>Esto es solo un ejemplo</p>
-
-const RequireAuth = () => {
-  const user = useSelector((state) => state.auth.user); // Obtener el usuario desde el estado de Redux
-
-  if (!user) {
-    return <Navigate to="/login" replace />; // Redirigir al login si no está autenticado
+  
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
   }
 
-  return <Outlet />; // Renderizar las rutas protegidas si está autenticado
+ 
+  if (requiredSubscription && !isSubscribed) {
+    return <Navigate to="/plans-info" replace />;
+  }
+
+  
+  return <Outlet />;
 };
 
-
-
+RequireAuth.propTypes ={
+  requiredSubscription:PropTypes.bool,
 }
-
-

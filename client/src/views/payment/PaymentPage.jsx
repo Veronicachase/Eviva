@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import imagePack from "../../assets/images/OvivaImagePack.webp";
+import logo from "../../assets/images/LogoOviva.jpg"
 import StripeContainer from "../../components/payment/StripeContainer";
 import { useDispatch } from "react-redux";
 import { checkAuthToken } from "../../utils/tokenVerifier";
@@ -15,16 +15,16 @@ const PaymentPage = () => {
 
 	return (
 		<div className='App'>
-			<h1 className="title">Eviva Care Plan</h1>
+			<h2 className="title">Eviva Care Plan</h2>
 			{showItem ? (
 				<StripeContainer />
 			) : (
-				<>
+				<div className ="imageContainer">
 					
-					<img className="paymentImage" src={imagePack} alt='Eviva' />
+					<img className="paymentImage" src={logo } alt='Eviva' />
 					<h3>Golden plan € 10.00</h3>
 					<button className="btn"   onClick={() => setShowItem(true)}>Get plan</button>
-				</>
+				</div>
 			)}
 		</div>
 	);
