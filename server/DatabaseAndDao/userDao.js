@@ -32,8 +32,8 @@ userDao.addUser = async (userData) => {
       password: userData.password,
       diagnosed: userData.diagnosed,
       avatar: userData.avatar,
-      subscription:userData.subscription,
-      role:userData.role
+      subscription: userData.subscription,
+      role: userData.role,
     };
     return await db.query("INSERT INTO users SET ?", userObj, "insert", conn);
   } catch (e) {
@@ -91,9 +91,8 @@ userDao.updateUser = async (id, userData) => {
       password: userData.password,
       diagnosed: userData.diagnosed,
       avatar: userData.avatar,
-      subscription:userData.subscription,
-      role:userData.role
-
+      subscription: userData.subscription,
+      role: userData.role,
     };
 
     userObj = await removeUndefinedKeys(userObj);
@@ -107,6 +106,74 @@ userDao.updateUser = async (id, userData) => {
     throw new Error(e);
   } finally {
     conn && (await conn.end());
+  }
+};
+
+userDao.updateUserWithUUID = async (userUUID, userData) => {
+  let conn = null;
+  try {
+    conn = await db.createConnection();
+
+    // Actualizar la tabla de usuarios
+    await db.query(
+      "UPDATE users SET ? WHERE userUUID = ?",
+      [userData, userUUID],
+      conn
+    );
+
+    // Obtener el userId del usuario actualizado
+    const result = await db.query(
+      "SELECT userId FROM users WHERE userUUID = ?",
+      [userUUID],
+      conn
+    );
+    const userId = result[0]?.userId;
+
+    if (userId) {
+      // Actualizar las tablas que tuviesen UUID
+      await db.query(
+        "UPDATE answers SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+
+      await db.query(
+        "UPDATE assessmentQuestions SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+
+      await db.query(
+        "UPDATE assessmentResponse SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+
+      await db.query(
+        "UPDATE surveyObjectivesAnswerOptions SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+
+      await db.query(
+        "UPDATE surveyObjectivesQuestions SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+
+      await db.query(
+        "UPDATE surveyObjectiveUserResponses SET userId = ? WHERE userUUID = ?",
+        [userId, userUUID],
+        conn
+      );
+    }
+
+    return userId;
+  } catch (e) {
+    console.error(e.message);
+    throw e;
+  } finally {
+    if (conn) await conn.end();
   }
 };
 

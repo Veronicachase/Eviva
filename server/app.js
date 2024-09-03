@@ -12,10 +12,11 @@ const calendarRouter = require("./routers/calendarRouter");
 const settingsRouter = require("./routers/settingsRouter");
 const paymentRouter =require("./routers/paymentRouter")
 const authenticateToken =require("./middleWares/authenticateToken")
+const testRouter = require("./routers/testRouter")
 const cors = require("cors");
 
 
-dotenv.config();
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -51,6 +52,8 @@ app.use("/payment", authenticateToken, paymentRouter);
 // rutas públicas
 
 app.use("/users", userRourter);
+//app.use("/assessment,testRouter")
+//app.use("/survey",testRouter)
 // faltaría ingresar las rutas del home, form para diagnosis de si y no , ver si register, forgot password,
 
 app.listen(port, () => {

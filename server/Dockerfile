@@ -18,6 +18,8 @@ WORKDIR /usr/src/app
 # into this layer.
 COPY package*.json ./
 RUN npm install 
+# Reconstruir bcrypt específicamente o todas las dependencias nativas
+RUN npm install && npm rebuild bcrypt --build-from-source
 
 
 # Run the application as a non-root user.

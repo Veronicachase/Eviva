@@ -5,6 +5,7 @@ const saltRounds = 10;
 
 const addUser = async (req, res) => {
   const { name, surName, age, email, password, diagnosed, avatar } = req.body;
+  let { userUUID } = req.body;
   if (!name || !email || !password)
     return res
       .status(400)
@@ -16,10 +17,31 @@ const addUser = async (req, res) => {
       return res.status(409).json("User already regitered");
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userId = await userDao.addUser({
-      ...req.body,
-      password: hashedPassword,
-    });
+    
+    let userId;
+    if (userUUID) {
+      userId = await userDao.updateUserWithUUID(userUUID, {
+        name,
+        surName,
+        age,
+        email,
+        password: hashedPassword,
+        diagnosed,
+        avatar,
+      });
+    } else {
+      // Si no tiene un userUUID, lo creamos como un nuevo usuario
+      userId = await userDao.addUser({
+        name,
+        surName,
+        age,
+        email,
+        password: hashedPassword,
+        diagnosed,
+        avatar,
+      });
+    }
+
     if (userId) return res.json(`Usuario ${name} con id: ${userId} registrado`);
   } catch (e) {
     console.error(e.message);
