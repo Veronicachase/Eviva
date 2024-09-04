@@ -8,20 +8,40 @@ recipeDao.addRecipe = async (recipeData) => {
   try {
     conn = await db.createConnection();
     let recipeObj = {
-      date:moment().format("YYYY-MM-DD"),
+      date: moment().format("YYYY-MM-DD"),
       title: recipeData.title,
       category: recipeData.category,
       type: recipeData.type,
       description: recipeData.description,
       content: recipeData.content,
-      image:recipeData.image,
+      image: recipeData.image,
       userId: recipeData.userId,
     };
     recipeObj = await removeUndefinedKeys(recipeObj);
-    await db.query("INSERT INTO recipes SET ?", recipeObj, "insert", conn);
-    return recipeObj.recipeId;
+    const [recipeResult] = await db.query(
+      "INSERT INTO recipes SET ?",
+      recipeObj,
+      "insert",
+      conn
+    );
+    const recipeId = recipeResult.insertId;
+    const ingredients = recipeData.ingredients;
+    for (let ingredient of ingredients) {
+      const ingredientObj = {
+        recipeId: recipeId,
+        name: ingredient.name,
+        quantity: ingredient.quantity,
+      };
+      await db.query(
+        "INSERT INTO ingredients SET?",
+        ingredientObj,
+        "insert",
+        conn
+      );
+    }
+    return recipeId;
   } catch (e) {
-    console.error(e.message);
+    console.error("Error adding recipe", e.message);
     throw e;
   } finally {
     if (conn) await conn.end();
@@ -54,9 +74,14 @@ recipeDao.getAllRecipes = async (userId) => {
   let conn = null;
   try {
     conn = await db.createConnection();
-    const results = await db.query("SELECT * FROM recipes WHERE userId = ?", [userId], "select", conn);
+    const results = await db.query(
+      "SELECT * FROM recipes WHERE userId = ?",
+      [userId],
+      "select",
+      conn
+    );
     if (results.length) {
-      return results ;
+      return results;
     }
     return null;
   } catch (e) {

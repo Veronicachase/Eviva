@@ -11,7 +11,8 @@ const PaymentRouter =express.Router();
 
 PaymentRouter.post("/create-payment-intent",  createPaymentIntent);
 //PaymentRouter.post("/create-payment-intent", authenticateToken,requireSubscription, createPaymentIntent);
-//PaymentRouter.post("/payment-record", paymentRecord)
+//PaymentRouter.post("/payment-record", addPaymentRecord)
+//paymentRouter.get("/record", getPaymenteRecord)
 
 
 // Routes requiring admin permitsPaymentAndCheckoutRouterr.post("/", requireAdmin, addRecipe);

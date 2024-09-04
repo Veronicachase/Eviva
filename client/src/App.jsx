@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
+import ResponsiveAppBar from "./components/layout/ResponsiveNavBar";
 import {
   AllBlogs,
   BlogAdminPanel,
@@ -10,8 +11,8 @@ import {
   InfoAccordingToObjective,
   Objective,
   SuscriptionAndPlansInfo,
-  Test,
-  TestResults,
+  SelfAssessment,
+  SelfAssessmentResults,
   Login,
   Register,
   ForgotPassword,
@@ -33,22 +34,40 @@ import {
 } from "./views/Index";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store/store";
+import { v4 as uuidv4 } from "uuid";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
+import { useEffect } from "react";
 
 // confirmar si resetPassword va dentro o fuera de auth
 //crear Require auth
 // paginas para pago y carrito
 function App() {
+useEffect(()=>{
+  let userUUID =localStorage.getItem('userUUID');
+  if (!userUUID ){
+    userUUID = uuidv4();
+    localStorage.setItem('userUUID', userUUID)
+  }
+})
+
+
   return (
     <Provider store={store}>
       <>
         <Toaster />
         <Routes>
+
+        {/* Admin section / requiere admin cred */}
+        <Route path="/blog-admin-panel" element={<BlogAdminPanel />} />
+        <Route path="/video-admin-panel" element={<VideoAdminPanel />} />
+        <Route path="/recipe-admin-panel" element={<RecipeAdminPanel />} />
+
           {/*Public routes*/}
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ResponsiveAppBar />} >
+          <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
@@ -57,9 +76,11 @@ function App() {
             path="/objectives-info"
             element={<InfoAccordingToObjective />}
           />
+          
+
           <Route path="/objective" element={<Objective />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/test-results" element={<TestResults />} />
+          <Route path="/test" element={<SelfAssessment />} />
+          <Route path="/test-results" element={<SelfAssessmentResults/>} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/plans-info" element={<SuscriptionAndPlansInfo />} />
           <Route
@@ -74,11 +95,6 @@ function App() {
             <Route path="/user-details" element={<UserDetails />} />
             <Route path="/settings" element={<Settings />} />
          
-
-          {/* Admin section / requiere admin cred */}
-          <Route path="/blog-admin-panel" element={<BlogAdminPanel />} />
-          <Route path="/video-admin-panel" element={<VideoAdminPanel />} />
-          <Route path="/recipe-admin-panel" element={<RecipeAdminPanel />} />
 
           {/* Require  being logged  and susbcription */}
           <Route element={<RequireAuth requiredSubscription={true} />}>
@@ -97,6 +113,7 @@ function App() {
               path="/selected-video/:videoId"
               element={<SelectedVideo />}
             />
+          </Route>
           </Route>
         </Routes>
       </>

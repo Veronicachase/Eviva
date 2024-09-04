@@ -22,8 +22,8 @@ import SelectedVideo from "./videos/SelectedVideo";
 import Settings from "./profile/Settings";
 import SuscriptionAndPlansInfo from "./SuscriptionAndPlansInfo";
 import TermsAndConditions from "./TermsAndConditions";
-import Test from "./homeAndDiagnosis/Test";
-import TestResults from "./homeAndDiagnosis/TestResults";
+import SelfAssessment  from "./homeAndDiagnosis/SelfAssessment";
+import SelfAssessmentResults from "./homeAndDiagnosis/SelfAssesmetResults";
 import UserDetails from "./profile/UserDetails";
 import UserProfile from "./profile/Profile";
 import VideoAdminPanel from "./panelAdmin/VideoAdminPanel";
@@ -54,8 +54,8 @@ export {
   Settings,
   SuscriptionAndPlansInfo,
   TermsAndConditions,
-  Test,
-  TestResults,
+  SelfAssessment,
+  SelfAssessmentResults,
   UserDetails,
   UserProfile,
   VideoAdminPanel,

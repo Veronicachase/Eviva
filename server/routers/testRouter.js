@@ -1,17 +1,14 @@
 const express = require ("express");
-const { } = require ("../controllers/testController");
+const { getQuestions, addResponse } = require ("../controllers/testController");
 const testRouter =express.Router();
 
 
 
 
-recipeRouter.use(authenticateToken);
-
-
 testRouter.get("/assessmentQ", getQuestions);
-testRouter.get("/surveyQ",   getSurveyQuestions);
+//testRouter.get("/surveyQ",   getSurveyQuestions);
 testRouter.post("/", addResponse);
-testRouter.post("/", addSurveyResponse);
+//testRouter.post("/", addSurveyResponse);
 
 // como plantear lo de la tercera tabla en workbench o hacerlo igual que assessment
 

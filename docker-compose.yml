@@ -2,24 +2,31 @@
 # If you need more help, visit the Docker Compose reference guide at
 # https://docs.docker.com/go/compose-spec-reference/
 
-
 # https://github.com/docker/awesome-compose
-version: '3'
+version: "3"
 services:
   frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"  # Cambia esto al puerto en el que Vite esté corriendo
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+
   backend:
     build:
       context: ./server
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Esto mapea el puerto 3000 del backend
+      - "3000:3000"
+    env_file:
+      - ./server/.env.development
+    environment:
+      - NODE_ENV=development
 
 
+        # Esto mapea el puerto 3000 del backend
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
