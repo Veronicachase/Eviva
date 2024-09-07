@@ -1,4 +1,6 @@
-
+crear estos cotrollers addNote,addSymptom,
+addMood,addSex, addPeriod, updateNote, updateSymptom,
+updateMood, updateSex, updateSex
 
 const { calendarDao, symptomsDao, moodsDao, sexDao, phasesDao, periodsDao } = require("../DatabaseAndDao/calendarDao");
 

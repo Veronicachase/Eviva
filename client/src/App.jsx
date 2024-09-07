@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
+//import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
 import ResponsiveAppBar from "./components/layout/ResponsiveNavBar";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   AllBlogs,
   BlogAdminPanel,
@@ -50,11 +52,11 @@ useEffect(()=>{
     userUUID = uuidv4();
     localStorage.setItem('userUUID', userUUID)
   }
-})
+},[])
 
 
   return (
-    <Provider store={store}>
+   <Provider store={store}> 
       <>
         <Toaster />
         <Routes>
@@ -97,7 +99,8 @@ useEffect(()=>{
          
 
           {/* Require  being logged  and susbcription */}
-          <Route element={<RequireAuth requiredSubscription={true} />}>
+          
+          {/*<Route element={<RequireAuth requiredSubscription={true} />}>*/}
             <Route path="/all-Blogs" element={<AllBlogs />} />
             <Route path="/selected-blog/blogId" element={<SelectedBlog />} />
             <Route path="/main-calendar" element={<MainCalendar />} />
@@ -114,10 +117,10 @@ useEffect(()=>{
               element={<SelectedVideo />}
             />
           </Route>
-          </Route>
+          {/*</Route>*/}
         </Routes>
       </>
-    </Provider>
+   </Provider> 
   );
 }
 

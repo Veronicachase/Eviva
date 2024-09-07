@@ -4,6 +4,10 @@ const { removeUndefinedKeys } = require("../utils/removeUndefinedKeys");
 const calendarDao = {}, moodsDao = {}, symptomsDao = {}, phasesDao = {}, sexDao = {}, periodsDao = {};
 
 
+
+
+
+//******** ADD QUERIES */
 calendarDao.addCompleteEntry = async (
   calendarData,
   symptomsData,
@@ -61,6 +65,117 @@ calendarDao.addCompleteEntry = async (
 };
 
 
+calendarDao.AddNote = async(noteData)=>{
+let conn = null;
+let calendarObj ={
+  note:noteData.note,
+  date: moment().format("YYYY-MM-DD")
+}
+
+try {
+
+  conn = await db.createConnection();
+  const addData = await db.query("INSERT INTO calendar SET ?", calendarObj, "insert", conn)
+  return calendarObj.calendarId
+} catch (error) {
+  console.error (error.message)
+  throw error;
+}finally {
+  if (conn) await conn.end();
+}
+}
+
+calendarDao.addSymptom = async(symtomData)=>{
+  let conn = null;
+  let symptomObj ={
+    date: moment().format("YYYY-MM-DD"),
+    symptomType:symtomData.symptomType,
+    intensity:symtomData.intensity,
+  }
+  
+  try {
+  
+    conn = await db.createConnection();
+    const addData = await db.query("INSERT INTO symptoms SET ?", symptomObj, "insert", conn)
+    return symptomObj.symptomId
+  } catch (error) {
+    console.error (error.message)
+    throw error;
+  }finally {
+    if (conn) await conn.end();
+  }
+  }
+
+  calendarDao.addMood = async(moodsData)=>{
+    let conn = null;
+    let moodsObj ={
+      date: moment().format("YYYY-MM-DD"),
+      moodType:moodsData.moodType,
+      
+    }
+    
+    try {
+    
+      conn = await db.createConnection();
+      const addData = await db.query("INSERT INTO moods SET ?", moodsObj, "insert", conn)
+      return moodsObj.moodId
+    } catch (error) {
+      console.error (error.message)
+      throw error;
+    }finally {
+      if (conn) await conn.end();
+    }
+    }
+
+    calendarDao.addSex = async(sexData)=>{
+      let conn = null;
+      let sexObj ={
+        date: moment().format("YYYY-MM-DD"),
+        partnet:sexData.partner,
+        protectionUsed:sexData.protectionUsed,
+        pain:sexData.pain,
+        lubrication:sexData.lubrication,
+        orgasm:sexData.orgasm
+      }
+      
+      try {
+      
+        conn = await db.createConnection();
+        const addData = await db.query("INSERT INTO sex SET ?", sexObj, "insert", conn)
+        return sexObj.sexId
+      } catch (error) {
+        console.error (error.message)
+        throw error;
+      }finally {
+        if (conn) await conn.end();
+      }
+      }
+  
+      calendarDao.addPeriod= async(periodData)=>{
+        let conn = null;
+        let periodObj ={
+          startDate: moment().format("YYYY-MM-DD"),
+          endDate:moment().format("YYYY-MM-DD"),
+          flowType:periodData.flowType,
+          pregnant:periodData.pregnant,
+        }
+        
+        try {
+        
+          conn = await db.createConnection();
+          const addData = await db.query("INSERT INTO periods SET ?", periodObj, "insert", conn)
+          return periodObj.periodId
+        } catch (error) {
+          console.error (error.message)
+          throw error;
+        }finally {
+          if (conn) await conn.end();
+        }
+        }
+      
+
+
+/*******GET QUERIES */
 
 calendarDao.getAllCalendarEntries = async (userId) => {
     let conn = null;
@@ -103,6 +218,23 @@ calendarDao.getAllCalendarEntries = async (userId) => {
       if (conn) await conn.end();
     }
   };
+
+
+
+
+/****** UPDATE QUERIES  */
+
+
+
+
+
+calendarDao.updateNote = async(userId)=>{}
+calendarDao.updateSymptom = async(userId)=>{}
+calendarDao.updateMood = async(userId)=>{}
+calendarDao.updateSex = async(userId)=>{}
+calendarDao.updatePeriod = async(userId)=>{}
+
+
   // revisar si colocar o no el userId
 calendarDao.updateCompleteEntries = async (userId, calendarId, calendarData, symptomsData, moodsData, periodsData, sexData, phaseData) => {
   let conn = null;
@@ -150,7 +282,9 @@ if (periodsData && Object.keys(periodsData).length > 0) {
 };
 
 
-//falta hacerle una delete cascade en la base de datos, por ahora no la voy a usar, voy a comenzar eliminando por partes
+
+
+// ***** DELETE QUERIES*********
 calendarDao.deleteAllCalendarEntriesOneDay = async (userId, calendarId) => {
   let conn = null;
   try {
