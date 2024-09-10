@@ -16,8 +16,8 @@ settingsDao.getAllSettings = async (userId) => {
   } catch (e) {
     console.error(e.message);
     throw e;
-  } finally {
-    if (conn) await conn.end();
+  }finally {
+    if (conn)  conn.release();
   }
 };
 
@@ -36,7 +36,7 @@ settingsDao.updateSettings = async (userId, settingsId, data) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

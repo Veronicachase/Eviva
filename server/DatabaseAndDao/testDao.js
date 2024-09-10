@@ -21,7 +21,7 @@ testDao.getQuestions = async (userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -45,7 +45,7 @@ return responseObj.responseId;
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import apiUserLogin from "../../apis/user/loginUser";
+import apiUserLogin from "../../apis/user/userLogin ";
 import apiGetUser from "../../apis/user/getUser";
 import apiDeleteUser from "../../apis/user/deleteUser";
 import addUser from "../../apis/user/addUser";

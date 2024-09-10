@@ -27,6 +27,7 @@ import SelfAssessmentResults from "./homeAndDiagnosis/SelfAssesmetResults";
 import UserDetails from "./profile/UserDetails";
 import UserProfile from "./profile/Profile";
 import VideoAdminPanel from "./panelAdmin/VideoAdminPanel";
+import DashBoard from "./panelAdmin/Dashboard"
 
 
 export {
@@ -59,4 +60,5 @@ export {
   UserDetails,
   UserProfile,
   VideoAdminPanel,
+  DashBoard
 };

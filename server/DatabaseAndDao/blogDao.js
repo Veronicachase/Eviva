@@ -16,6 +16,7 @@ blogDao.addBlog = async (blogData) => {
       description: blogData.description,
       content:blogData.content,
       userId: blogData.userId,
+      image:blogData.image
     };
     blogObj = await removeUndefinedKeys(blogObj);
     await db.query("INSERT INTO blogs SET ?", blogObj, "insert", conn);
@@ -24,7 +25,7 @@ blogDao.addBlog = async (blogData) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn) conn.release();
   }
 };
 
@@ -46,7 +47,7 @@ blogDao.getBlogById = async (blogId, userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -68,7 +69,7 @@ blogDao.getAllBlogs = async (userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -87,7 +88,7 @@ blogDao.updateBlog = async (userId, blogId, data) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -105,7 +106,7 @@ blogDao.deleteBlog = async (userId, blogId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

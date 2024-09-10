@@ -44,7 +44,7 @@ recipeDao.addRecipe = async (recipeData) => {
     console.error("Error adding recipe", e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -66,7 +66,7 @@ recipeDao.getRecipeById = async (recipeId, userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -88,7 +88,7 @@ recipeDao.getAllRecipes = async (userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -107,7 +107,7 @@ recipeDao.updateRecipe = async (userId, recipeId, data) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -125,7 +125,7 @@ recipeDao.deleteRecipe = async (userId, recipeId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

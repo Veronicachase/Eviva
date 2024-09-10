@@ -7,7 +7,13 @@ const addRecipe = async (req, res) => {
     }
     try {
         const userId = req.user.userId;
-        const recipeId = await recipeDao.addRecipe({...req.body, userId});
+        let recipeUrl =null;
+        if(req.file){
+            recipeUrl = `/uploads/${req.file.filename}`
+        }
+        const recipeData = {...req.body,userId, image:recipeUrl }
+        
+        const recipeId = await recipeDao.addRecipe({recipeData});
         res.status(201).json({ message: "recipe creado exitosamente", recipeId });
     } catch (error) {
         console.error("Error al agregar el recipe:", error.message);

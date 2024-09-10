@@ -4,48 +4,40 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const addUser = async (req, res) => {
-  const { name, surName, age, email, password, diagnosed, avatar } = req.body;
-  let { userUUID } = req.body;
-  if (!name || !email || !password)
+  const { userUUID, ...data } = req.body; 
+  
+  if (!data.name || !data.email || !data.password)
     return res
       .status(400)
       .json({ message: "Name, email and password are required" });
 
   try {
-    const userExists = await userDao.getUserByEmail(email);
+    const userExists = await userDao.getUserByEmail(data.email);
     if (userExists.length > 0)
       return res.status(409).json("User already regitered");
 
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    
+    const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+
     let userId;
     if (userUUID) {
       userId = await userDao.updateUserWithUUID(userUUID, {
-        name,
-        surName,
-        age,
-        email,
+        ...data,
         password: hashedPassword,
-        diagnosed,
-        avatar,
+      
       });
     } else {
       // Si no tiene un userUUID, lo creamos como un nuevo usuario
       userId = await userDao.addUser({
-        name,
-        surName,
-        age,
-        email,
+        ...data,
         password: hashedPassword,
-        diagnosed,
-        avatar,
+        
       });
     }
 
-    if (userId) return res.json(`Usuario ${name} con id: ${userId} registrado`);
+    if (userId) return res.json(`User ${data.name} with id: ${userId}registed`);
   } catch (e) {
     console.error(e.message);
-    res.status(500).json({ message: "Error al registrar el usuario" });
+    res.status(500).json({ message: "Error registering user" });
     throw new Error(e);
   }
 };

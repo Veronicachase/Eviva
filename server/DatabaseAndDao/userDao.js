@@ -15,7 +15,7 @@ userDao.getUserByEmail = async (email) => {
   } catch (e) {
     throw new Error(e);
   } finally {
-    conn && (await conn.end());
+    if (conn)  conn.release();
   }
 };
 
@@ -33,13 +33,13 @@ userDao.addUser = async (userData) => {
       diagnosed: userData.diagnosed,
       avatar: userData.avatar,
       subscription: userData.subscription,
-      role: userData.role,
+      role: userData.role || "user",
     };
     return await db.query("INSERT INTO users SET ?", userObj, "insert", conn);
   } catch (e) {
     throw new Error(e);
   } finally {
-    conn && (await conn.end());
+    if (conn)  conn.release();
   }
 };
 
@@ -56,7 +56,7 @@ userDao.getUserbyId = async (id) => {
   } catch (e) {
     throw new Error(e);
   } finally {
-    conn && (await conn.end());
+    if (conn)  conn.release();
   }
 };
 
@@ -73,7 +73,7 @@ userDao.deleteUser = async (id) => {
   } catch (e) {
     throw new Error(e);
   } finally {
-    conn && (await conn.end());
+    if (conn)  conn.release();
   }
 };
 
@@ -105,7 +105,7 @@ userDao.updateUser = async (id, userData) => {
   } catch (e) {
     throw new Error(e);
   } finally {
-    conn && (await conn.end());
+    if (conn)  conn.release();
   }
 };
 
@@ -173,7 +173,7 @@ userDao.updateUserWithUUID = async (userUUID, userData) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

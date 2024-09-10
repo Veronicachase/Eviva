@@ -1,6 +1,6 @@
 // Antes de enviar a producción debo robustecer mis filtros y captura de errores.
 
-const Stripe = require("stripe")(process.env.STRIPE_SK_PRIVATE_kEY_Test);
+const Stripe = require("stripe")(process.env.PRIVATE_kEY_STRIPE);
 const paymentDao = require("../DatabaseAndDao/paymentDao");
 
 // falta revisión
@@ -12,16 +12,13 @@ const createPaymentIntent = async (req, res) => {
       amount,
       currency: "EUR",
       description: "Subscription to Oviva Care",
-      payment_method: id,
-      confirm: true,
     });
     console.log("PaymentIntent", paymentIntent);
 
     res.status(200).send({
       success: true,
       clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id,
-      status: paymentIntent.status,
+     
     });
     console.log(clientSecret);
   } catch (error) {

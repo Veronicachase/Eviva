@@ -27,7 +27,7 @@ videoDao.addVideo = async (videoData) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -49,7 +49,7 @@ videoDao.getVideoById = async (videoId, userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -71,7 +71,7 @@ videoDao.getAllVideos = async (userId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -90,7 +90,7 @@ videoDao.updateVideo = async (userId, videoId, data) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -108,7 +108,7 @@ videoDao.deleteVideo = async (userId, videoId) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 

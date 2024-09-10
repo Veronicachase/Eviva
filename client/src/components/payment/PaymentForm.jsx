@@ -24,6 +24,10 @@ const PaymentForm = () => {
     const fetchClientSecret = async () => {
       try {
         const token = localStorage.getItem("token");  
+        if (!token) {
+          console.error("No se encontró el token en localStorage");
+          return;
+      }
         const amount = 12900;  
         
         // Llamada para obtener el clientSecret desde el backend
@@ -72,6 +76,8 @@ const PaymentForm = () => {
           // Esta es la sección para guardar los detalles en la base de datos (tabla payments)
 
           const token = localStorage.getItem("token");
+
+      
           
           await axios.post(`${apiUrl}/payment/payment-record`, {
             paymentIntentId: paymentIntent.id,

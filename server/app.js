@@ -4,6 +4,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const logger = require("morgan");
+const authenticateToken =require("./middleWares/authenticateToken")
+const cors = require("cors");
+const uploads = require('./middleWares/multer')
+
 const userRourter = require("./routers/userRouter");
 const blogRouter = require("./routers/blogRouter");
 const videoRouter = require("./routers/videoRouter");
@@ -11,10 +15,7 @@ const recipeRouter = require("./routers/recipeRouter");
 const calendarRouter = require("./routers/calendarRouter");
 const settingsRouter = require("./routers/settingsRouter");
 const paymentRouter =require("./routers/paymentRouter")
-const authenticateToken =require("./middleWares/authenticateToken")
 const testRouter = require("./routers/testRouter")
-const cors = require("cors");
-
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = express();
@@ -32,6 +33,7 @@ app.use(logger("dev"));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 //app.use(authenticateToken);
 // Debo hacer esto? o sin esto vale?
 

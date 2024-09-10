@@ -11,7 +11,6 @@ export default function AllBlogs() {
   useEffect(() => {
     checkAuthToken(dispatch);
   }, [dispatch]);
-
   return ( 
     <Content>
     <h1>All blogs</h1>

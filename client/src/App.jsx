@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-//import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
+import { RequireAuth } from "./components/authLoginComponents/RequireAuth";
 import ResponsiveAppBar from "./components/layout/ResponsiveNavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,6 +33,8 @@ import {
   LoggedUserOptionsPage,
   TermsAndConditions,
   PaymentPage,
+  DashBoard,
+  
 } from "./views/Index";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store/store";
@@ -62,6 +64,7 @@ useEffect(()=>{
         <Routes>
 
         {/* Admin section / requiere admin cred */}
+        <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/blog-admin-panel" element={<BlogAdminPanel />} />
         <Route path="/video-admin-panel" element={<VideoAdminPanel />} />
         <Route path="/recipe-admin-panel" element={<RecipeAdminPanel />} />
@@ -100,7 +103,8 @@ useEffect(()=>{
 
           {/* Require  being logged  and susbcription */}
           
-          {/*<Route element={<RequireAuth requiredSubscription={true} />}>*/}
+          <Route element={<RequireAuth requiredSubscription={true} />}>
+          <Route path="/logged-user-options" element={<LoggedUserOptionsPage />} />
             <Route path="/all-Blogs" element={<AllBlogs />} />
             <Route path="/selected-blog/blogId" element={<SelectedBlog />} />
             <Route path="/main-calendar" element={<MainCalendar />} />
@@ -117,7 +121,7 @@ useEffect(()=>{
               element={<SelectedVideo />}
             />
           </Route>
-          {/*</Route>*/}
+          </Route>
         </Routes>
       </>
    </Provider> 

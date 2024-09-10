@@ -3,15 +3,14 @@ import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const addUser = async (data, token) => {
+const addUser = async (data) => {
     try {
       
         const response = await axios.post(`${apiUrl}/users`, data, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+           
         });
         console.log('User data:', response.data);
+        console.log(apiUrl)
         return response.data;
     } catch (error) {
         console.error('Error adding user:', error);

@@ -2,6 +2,7 @@ const express = require ("express");
 const { addVideo, getVideoById, getAllVideos,updateVideo, deleteVideo } = require ("../controllers/videoController");
 const videoRouter =express.Router();
 //const authenticateToken = require("../middleWares/authenticateToken");
+const upload = require("../middleWares/multer");
 const requireAdmin = require ("../middleWares/requireAdmin")
 const requireSubscription =require("../middleWares/requireSubscription")
 
@@ -20,7 +21,7 @@ videoRouter.get('/:videoId', getVideoById);
 // Rutas que requieren autenticación y privilegios de administrador
 
 
-videoRouter.post('/', requireAdmin, addVideo);
+videoRouter.post('/',upload.single('image'), requireAdmin, addVideo);
 videoRouter.patch('/:videoId', requireAdmin, updateVideo);
 videoRouter.delete('/:videoId', requireAdmin, deleteVideo);
 

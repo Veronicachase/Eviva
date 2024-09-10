@@ -25,7 +25,7 @@ paymentDao.savePaymentDetails = async (paymentDetails) => {
     console.error(e.message);
     throw e;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
@@ -47,7 +47,7 @@ paymentDao.getPaymentRecord = async ( userId) => {
     console.error(error.message);
     throw error;
   } finally {
-    if (conn) await conn.end();
+    if (conn)  conn.release();
   }
 };
 
