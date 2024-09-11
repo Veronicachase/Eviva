@@ -4,14 +4,16 @@ import AllVideos from "./videos/AllVideos";
 import BlogAdminPanel from "./panelAdmin/BlogAdminPanel";
 import ContactUs from "./ContactUs";
 import ForgotPassword from "./login/ForgotPassword";
-import Home from "./homeAndDiagnosis/Home";
-import InfoAccordingToObjective from "./homeAndDiagnosis/InfoAccordingToObjective";
+import Home from "./home/Home";
+import InfoAccordingToObjective from "./assessments/InfoAccordingToObjective";
 import LoggedUserOptionsPage from "./LoggedUserOptionsPage";
 import Login from "./login/Login";
 import MainCalendar from "./calendar/MainCalendar";
-import Objective from "./homeAndDiagnosis/Objective";
-import PaymentDetails from "./profile/PaymentDetails";
+import MainEval from './assessments/MainEval';
+import Objective from "./assessments/Objective";
+import PaymentDetails from "./payment/PaymentDetails";
 import PaymentPage from "./payment/PaymentPage";
+import PaymentSuccess from "./payment/PaymentSuccess";
 import RecipeAdminPanel from "./panelAdmin/RecipeAdminPanel";
 import Register from "./login/Register";
 import Reports from "./calendar/Reports";
@@ -22,8 +24,8 @@ import SelectedVideo from "./videos/SelectedVideo";
 import Settings from "./profile/Settings";
 import SuscriptionAndPlansInfo from "./SuscriptionAndPlansInfo";
 import TermsAndConditions from "./TermsAndConditions";
-import SelfAssessment  from "./homeAndDiagnosis/SelfAssessment";
-import SelfAssessmentResults from "./homeAndDiagnosis/SelfAssesmetResults";
+import SelfAssessment  from "./assessments/SelfAssessment";
+import SelfAssessmentResults from "./assessments/SelfAssesmetResults";
 import UserDetails from "./profile/UserDetails";
 import UserProfile from "./profile/Profile";
 import VideoAdminPanel from "./panelAdmin/VideoAdminPanel";
@@ -42,9 +44,11 @@ export {
   LoggedUserOptionsPage,
   Login,
   MainCalendar,
+  MainEval ,
   Objective,
   PaymentDetails,
   PaymentPage,
+  PaymentSuccess,
   RecipeAdminPanel,
   Register,
   Reports,

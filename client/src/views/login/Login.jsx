@@ -24,9 +24,8 @@ export default function Login() {
     onSubmit: async (data, { setSubmitting, resetForm }) => {
       try {
         const result = await dispatch(loginUser(data)).unwrap();  
-        if(result){ navigate('/logged-user-options') }
-        
-    
+        if(result){ navigate('/') }
+      
         resetForm();
       } catch (error) {
         console.error('Error registrando el usuario:', error);

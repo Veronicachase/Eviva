@@ -27,13 +27,14 @@ export const RegisterFormSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir')
     .required('Confirmar contraseña es obligatorio'),
 
-  diagnosed: yup.string().nullable(),
+  diagnosed: yup.boolean(),
 
   acceptedTC: yup.boolean()
     .oneOf([true], "Por favor acepte los términos y condiciones")
     .required("Es obligatorio aceptar los términos y condiciones"),
 
   subscribeNewsletter: yup.boolean(),
+ 
 
   
 

@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CARD_OPTIONS } from "../../utils/variables";
+import { useNavigate } from 'react-router-dom'
 import "../../views/payment/payment.css";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -18,6 +19,7 @@ const PaymentForm = () => {
   const [clientSecret, setClientSecret] = useState(""); 
   const stripe = useStripe();
   const elements = useElements();
+  const navigate= useNavigate()
 
 
   useEffect(() => {
@@ -25,12 +27,12 @@ const PaymentForm = () => {
       try {
         const token = localStorage.getItem("token");  
         if (!token) {
-          console.error("No se encontró el token en localStorage");
+          console.error("Token not found in localStorage");
           return;
       }
         const amount = 12900;  
         
-        // Llamada para obtener el clientSecret desde el backend
+      
         const response = await axios.post(`${apiUrl}/payment/create-payment-intent`, 
         { amount }, 
         {
@@ -39,8 +41,9 @@ const PaymentForm = () => {
             "Authorization": `Bearer ${token}`,
           },
         });
-
-        setClientSecret(response.data.clientSecret);  
+        const secret = response.data.clientSecret; 
+        console.log("Client secret fetched:", secret); 
+        console.log(secret)
       } catch (error) {
         console.error("Error fetching client secret:", error);
       }
@@ -52,6 +55,11 @@ const PaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);  
+    if (!clientSecret) {
+      console.error("Client secret is not available.");
+      setLoading(false);
+      return;
+    }
 
     const cardNumber = elements.getElement(CardNumberElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -93,6 +101,8 @@ const PaymentForm = () => {
           });
 
           console.log("Payment successfully processed:", paymentIntent);
+          
+          navigate('/payment-success')
           setSuccess(true);  
         }
       } catch (error) {

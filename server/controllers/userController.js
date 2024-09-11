@@ -46,20 +46,20 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).send("Email y contraseña son requeridos.");
+    return res.status(400).send("Email and password are required.");
   }
 
   try {
     const users = await userDao.getUserByEmail(email);
     if (users.length === 0) {
-      return res.status(404).json({ message: "Usuario no registrado." });
+      return res.status(404).json({ message: "Invalid user." });
     }
 
     const user = users[0];
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Contraseña incorrecta." });
+      return res.status(401).json({ message: "Wrong password." });
     }
 
     const jwtConstructor = new SignJWT({
@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
       email: user.email,
       role: user.role,
       diagnosed: user.diagnosed,
-      subscription: user.subscription,
+      isSubscribed: user.isSubscribed,
       acceptTerms: user.acceptTerms,
       acceptCookies: user.acceptCookies,
       subscribeNewletter: user.subscribeNewletter,
@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
         email: user.email,
         role: user.role,
         diagnosed: user.diagnosed,
-        subscription: user.subscription,
+        isSubscribed: user.isSubscribed,
         acceptTerms: user.acceptTerms,
         acceptCookies: user.acceptCookies,
         subscribeNewletter: user.subscribeNewletter,

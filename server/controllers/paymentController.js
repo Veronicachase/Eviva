@@ -68,4 +68,4 @@ const getPaymentRecord = async (req, res) => {
   } catch (error) {}
 };
 
-module.exports = { createPaymentIntent, addPaymentRecord, getPaymentRecord };
+module.exports = { createPaymentIntent, addPaymentRecord , getPaymentRecord };

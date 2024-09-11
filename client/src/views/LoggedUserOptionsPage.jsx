@@ -11,5 +11,5 @@ export default function LoggedUserOptionsPage(){
       checkAuthToken(dispatch);
     }, [dispatch]);
   
-    return<h1>Page for users loged it contains options</h1>
+    return<h1>Page for users logged it contains options</h1>
 }

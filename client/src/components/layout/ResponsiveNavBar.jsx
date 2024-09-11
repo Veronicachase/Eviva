@@ -14,24 +14,43 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'; 
 import './layout.css'
 import logo from '../../assets/images/LogoOviva.jpg';
 
-const pages = [
-  { name: 'Tests', route: '/test' },
-  { name: 'Videos', route: '/all-videos' },
-  { name: 'Recipes', route: '/all-recipes' },
-  { name: 'Calendar', route: '/main-calendar' },
-  { name: 'Blog', route: '/all-Blogs' },
-  { name: 'Pricing', route: '/pricing' },
-  { name: 'Login', route: '/login' },
-];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
+  const { user, isSubscribed, isLoggedIn } = useSelector((state)=> state.user)
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+  const pages = [
+  { name: 'Tests', route: '/main-eval' },
+  { name: 'Pricing', route: '/plans-info' },
+  { name: 'Login', route: '/login' },
+
+]
+
+if (isLoggedIn && isSubscribed ){
+  pages.push(
+    { name: 'Videos', route: '/all-videos' },
+    { name: 'Calendar', route: '/main-calendar' },
+    { name: 'Recipes', route: '/all-recipes' },
+    { name: 'Blog', route: '/all-Blogs' }
+
+  )
+}
+
+if(user && user.role==='admin'){
+  
+pages.push({ name: 'Dashboard', route: '/dashboard' });
+  }
+
+
 
   const handleLogoClick = () => {
     navigate('/');
@@ -131,6 +150,7 @@ function ResponsiveAppBar() {
                     }}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
+                 
                     {page.name}
                   </Button>
                 ))}
@@ -179,5 +199,5 @@ function ResponsiveAppBar() {
     </>
   );
 }
-
+                
 export default ResponsiveAppBar;

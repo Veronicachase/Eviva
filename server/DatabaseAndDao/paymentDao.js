@@ -20,6 +20,9 @@ paymentDao.savePaymentDetails = async (paymentDetails) => {
     };
     paymentObj = await removeUndefinedKeys(paymentObj);
     await db.query("INSERT INTO payments SET ?", paymentObj, "insert", conn);
+    if (status === 'succeeded') {
+      await db.query("UPDATE users SET isSubscribed = 1 WHERE userId = ?", [userId],"insert", conn);
+    }
     return paymentObj.paymentId;
   } catch (e) {
     console.error(e.message);

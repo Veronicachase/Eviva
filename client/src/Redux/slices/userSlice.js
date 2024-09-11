@@ -41,6 +41,11 @@ export const subscriberUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, { rejectWithValue }) => {
+    if(userData.token && userData.user ){
+      console.log("Using already decoded token and user:", userData);
+      return { token: userData.token, user: userData.user };
+    }
+
     try {
       const response = await apiUserLogin(userData);
       return response;
@@ -115,10 +120,16 @@ const userSlice = createSlice({
       })
 
       .addCase(loginUser.fulfilled, (state, action) => {
+        console.log("Login User Payload:", action.payload);
         state.isLoggedIn = true;
-        state.user = action.payload;
-        state.isSubscribed = action.payload.isSubscribed || false;
-        localStorage.setItem("token", action.payload.token);
+        if (action.payload.user && action.payload.token) {
+          state.user = action.payload.user;
+          state.isSubscribed = !!action.payload.user.isSubscribed;
+          localStorage.setItem("token", action.payload.token);
+        } else {
+          console.warn("No user or token in the payload");
+        }
+        
         state.status = "succeeded";
       })
       .addCase(loginUser.rejected, (state, action) => {

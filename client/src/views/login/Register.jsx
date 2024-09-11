@@ -2,27 +2,36 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { registerInitialValues } from '../../views/login/InitialValues/RegisterInitialValues';
 import { RegisterFormSchema } from '../../views/login/schemas/RegisterSchema';
-import { userRegister } from '../../Redux/slices/userSlice'; 
+import { userRegister } from '../../Redux/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: registerInitialValues,
     validationSchema: RegisterFormSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const { confirmPassword, ...data } = values; 
+      const { confirmPassword, ...data } = values;
       try {
-        dispatch(userRegister(data)); 
-        resetForm(); 
+        dispatch(userRegister(data));
+        toast('Successfully Registered, please login');
+        navigate('/login')
+        resetForm();
       } catch (error) {
         console.error('Error registrando el usuario:', error);
       }
       setSubmitting(false);
-    }
+      toast('Error Registering');
+    },
   });
 
   return (
-    <form className="form-control mt-5 container" onSubmit={formik.handleSubmit}>
+    <form
+      className="form-control mt-5 container"
+      onSubmit={formik.handleSubmit}
+    >
       <div className="row">
         {/* Campo de nombre */}
         <div className="col-md-6">
@@ -34,7 +43,9 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Name"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.name && formik.touched.name ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.name && formik.touched.name ? 'is-invalid' : ''
+            }`}
           />
           {formik.errors.name && formik.touched.name && (
             <div className="invalid-feedback">{formik.errors.name}</div>
@@ -51,7 +62,11 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Surname"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.surName && formik.touched.surName ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.surName && formik.touched.surName
+                ? 'is-invalid'
+                : ''
+            }`}
           />
           {formik.errors.surName && formik.touched.surName && (
             <div className="invalid-feedback">{formik.errors.surName}</div>
@@ -70,7 +85,9 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Age"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.age && formik.touched.age ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.age && formik.touched.age ? 'is-invalid' : ''
+            }`}
           />
           {formik.errors.age && formik.touched.age && (
             <div className="invalid-feedback">{formik.errors.age}</div>
@@ -87,7 +104,9 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Email"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.email && formik.touched.email ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.email && formik.touched.email ? 'is-invalid' : ''
+            }`}
           />
           {formik.errors.email && formik.touched.email && (
             <div className="invalid-feedback">{formik.errors.email}</div>
@@ -106,7 +125,11 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Password"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.password && formik.touched.password ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.password && formik.touched.password
+                ? 'is-invalid'
+                : ''
+            }`}
           />
           {formik.errors.password && formik.touched.password && (
             <div className="invalid-feedback">{formik.errors.password}</div>
@@ -123,10 +146,16 @@ export default function Register() {
             onChange={formik.handleChange}
             placeholder="Confirm Password"
             onBlur={formik.handleBlur}
-            className={`form-control ${formik.errors.confirmPassword && formik.touched.confirmPassword ? "is-invalid" : ""}`}
+            className={`form-control ${
+              formik.errors.confirmPassword && formik.touched.confirmPassword
+                ? 'is-invalid'
+                : ''
+            }`}
           />
           {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-            <div className="invalid-feedback">{formik.errors.confirmPassword}</div>
+            <div className="invalid-feedback">
+              {formik.errors.confirmPassword}
+            </div>
           )}
         </div>
       </div>
@@ -174,7 +203,13 @@ export default function Register() {
         </label>
       </div>
 
-      <button type="submit" className="btn btn-primary mt-3" disabled={formik.isSubmitting}>Register</button>
+      <button
+        type="submit"
+        className="btn btn-primary mt-3"
+        disabled={formik.isSubmitting}
+      >
+        Register
+      </button>
     </form>
   );
 }

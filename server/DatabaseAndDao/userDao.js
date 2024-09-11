@@ -2,6 +2,8 @@ const db = require("./DataBase/db");
 const moment = require("moment");
 const { removeUndefinedKeys } = require("../utils/removeUndefinedKeys");
 const userDao = {};
+
+
 userDao.getUserByEmail = async (email) => {
   let conn = null;
   try {
@@ -27,12 +29,12 @@ userDao.addUser = async (userData) => {
       date: moment().format("YYYY-MM-DD"),
       name: userData.name,
       surName: userData.surName,
-      age: userData.age,
+      age: userData.age||null,
       email: userData.email,
       password: userData.password,
       diagnosed: userData.diagnosed,
       avatar: userData.avatar,
-      subscription: userData.subscription,
+      isSubscribed: userData.isSubscribed,
       role: userData.role || "user",
     };
     return await db.query("INSERT INTO users SET ?", userObj, "insert", conn);
@@ -91,7 +93,7 @@ userDao.updateUser = async (id, userData) => {
       password: userData.password,
       diagnosed: userData.diagnosed,
       avatar: userData.avatar,
-      subscription: userData.subscription,
+      isSubscribed: userData.isSubscribed,
       role: userData.role,
     };
 
