@@ -1,0 +1,173 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+
+
+.body{
+margin:0;
+pading:0;
+box-sizing:border-box;
+
+}
+
+.main{
+width:100%;
+ margin: 0;
+ padding: 0
+}
+    
+.wrapper{
+width:100%;
+position: relative;
+margin: 0;
+padding: 0
+
+}
+
+.hero, .orangeTop{
+width:1512px;
+height:982px;
+display:block;
+object-fit:cover;
+transform: scaleX(-1);
+ 
+}
+.orangeTop{
+    height:620px;  
+}
+.logo{
+position:absolute;
+top:2em;
+left:0;
+
+}
+
+.modal-container{
+    background-color: rgba(255, 255, 255, 0.3); 
+    position: absolute;
+    top: 15%; 
+    left: 15%; 
+    width: 600px;
+    border-radius: 20px; 
+    padding: 3em 2em; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+
+
+}
+
+.mainButton{
+widht:274px;
+height:48px;
+background-color:#A6035D;
+color:white;
+padding:0 24px;
+border:3px solid #A6035D;
+border-radius:64px;
+letter-spacing:2px;
+
+}
+
+.modal-container p,
+.modal-container h4,
+.modal-container h1 {
+letter-spacing:2px;
+line-height:1.5;
+margin-top:1em;
+margin-bottom:1em;
+
+}
+.modal-container h1 {
+    line-height:1.1;
+}
+
+
+
+.webinarInfo{
+position:absolute;
+top:10%;
+left:50%;
+
+}
+
+.round{
+width:100px;
+height:100px;
+border-radius:50%;
+background-color:white;
+margin:2em;
+
+}
+span{
+    font-weight:bold;
+  
+}
+
+.carrousel:{
+    display:flex;
+    float:right;
+    
+   
+}
+
+.carrouselImg{
+border-radius: 0 32px 32px 0;
+}
+
+
+.carrouselImg img{
+object-fit:cover;
+width:743px;
+height:710px;
+border-radius: 0 32px 32px 0;
+}
+
+
+.commentDiv{
+width:588px;
+height:580px;
+border-radius:32px;
+background-color:rgba(246, 142, 61, 0.1);
+padding:2em;
+position: relative;
+
+}
+
+.roundedComment{
+    width:224px;
+    height:224px;
+    border-radius:50%;
+    background-color:white;
+    display: flex;
+    justify-content: center; 
+    position: absolute;
+    top: -112px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rounded{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    object-fit: cover;
+   
+}
+.commentText{
+    text-align:center;
+    
+}
+
+.row-3{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    margin-bottom:3em;
+}
+.row-3 > div{
+width:48%;
+margin-bottom:1em;
+
+
+}

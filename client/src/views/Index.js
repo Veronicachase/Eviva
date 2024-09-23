@@ -6,6 +6,8 @@ import ContactUs from "./ContactUs";
 import ForgotPassword from "./login/ForgotPassword";
 import Home from "./home/Home";
 import InfoAccordingToObjective from "./assessments/InfoAccordingToObjective";
+import LandingPage from "./landing/LandingPage";
+import LandingForm from "./landing/LandingForm"
 import LoggedUserOptionsPage from "./LoggedUserOptionsPage";
 import Login from "./login/Login";
 import MainCalendar from "./calendar/MainCalendar";
@@ -32,6 +34,7 @@ import VideoAdminPanel from "./panelAdmin/VideoAdminPanel";
 import DashBoard from "./panelAdmin/Dashboard"
 
 
+
 export {
   AllBlogs,
   AllRecipes,
@@ -41,6 +44,8 @@ export {
   ForgotPassword,
   Home,
   InfoAccordingToObjective,
+  LandingPage,
+  LandingForm,
   LoggedUserOptionsPage,
   Login,
   MainCalendar,

@@ -14,6 +14,8 @@ import {
   ForgotPassword,
   Home,
   InfoAccordingToObjective,
+  LandingPage,
+  LandingForm,
   LoggedUserOptionsPage,
   Login,
   MainCalendar,
@@ -77,6 +79,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/landing" element={<LandingPage/>} />
+            <Route path="/landingForm" element={<LandingForm/>} />
             <Route
               path="/objectives-info"
               element={<InfoAccordingToObjective />}
